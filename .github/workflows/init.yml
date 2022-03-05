@@ -36,7 +36,9 @@ jobs:
           git init
           echo "$git_config" > .git/config
           git add . && git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --source=. --remote=new_repo --license=MIT
+          repo=`gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --license=MIT`
+          echo "$repo"
+          git remote add new_repo "$repo"
           git push new_repo main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
