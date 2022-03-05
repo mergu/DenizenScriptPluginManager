@@ -31,6 +31,7 @@ jobs:
           git config --global init.defaultBranch main
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global url."https://${{ github.actor }}:$GITHUB_TOKEN@github.com".insteadOf "https://github.com"
           #git_config=`cat .git/config`
           #cd template
           #git init
