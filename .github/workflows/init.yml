@@ -35,12 +35,12 @@ jobs:
           #cd template
           #git init
           #echo "$git_config" > .git/config
-          mkdir new_repo && cd new_repo
-          ls -lah
           gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --license=MIT --clone
+          cp -r template "$PLUGIN_NAME"
+          cd "$PLUGIN_NAME"
           ls -lah
-          cp -r ../template .
-          ls -lah
+          git add . && git commit -m "Copy repo template"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
