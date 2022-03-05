@@ -25,9 +25,8 @@ jobs:
         run: |
           echo "Attempting to create repository $PLUGIN_NAME"
           git config --global init.defaultBranch main
-          git config --global user.name ${{ github.actor }}
-          git config --global user.email ${{ github.actor }}@users.noreply.github.com
-          echo ${{ github.actor }}
+          git config --global user.name github-actions[bot]
+          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
           rm -rf .git
           git init
           git add .
