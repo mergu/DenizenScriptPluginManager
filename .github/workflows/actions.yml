@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Test creating a repo
         run: |
-          echo "$PLUGIN_NAME"
+          echo "Attempting to create repository $PLUGIN_NAME"
+          gh repo create "$PLUGIN_NAME" --public
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
