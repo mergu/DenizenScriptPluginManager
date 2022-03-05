@@ -31,15 +31,16 @@ jobs:
           git config --global init.defaultBranch main
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git_config=`cat .git/config`
-          cd template
-          git init
-          echo "$git_config" > .git/config
-          git add . && git commit -m "Initial commit"
-          repo=`gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --license=MIT`
-          echo "$repo"
-          git remote add new_repo "$repo"
-          git push new_repo main
+          #git_config=`cat .git/config`
+          #cd template
+          #git init
+          #echo "$git_config" > .git/config
+          mkdir new_repo && cd new_repo
+          ls -lah
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --license=MIT --clone
+          ls -lah
+          cp -r ../template .
+          ls -lah
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
