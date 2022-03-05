@@ -2,9 +2,10 @@ name: Java CI
 
 on:
   workflow_dispatch:
-    plugin_name:
-      description: Name of your new plugin
-      required: true
+    inputs:
+      plugin_name:
+        description: Name of your new plugin
+        required: true
 
 jobs:
   build:
