@@ -29,6 +29,7 @@ jobs:
         run: |
           echo "Attempting to create repository $PLUGIN_NAME"
           git config --global init.defaultBranch main
+          git config --global 'credential.https://github.com' '!gh auth git-credential'
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           rm -rf .git
