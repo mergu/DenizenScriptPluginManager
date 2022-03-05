@@ -25,7 +25,7 @@ jobs:
         run: |
           echo `ls -lah`
           echo "Attempting to create repository $PLUGIN_NAME"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=. --remote=new_repo --description="This is a test"
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=. --remote=new_repo
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
