@@ -19,5 +19,5 @@ jobs:
           echo "Attempting to create repository $PLUGIN_NAME"
           gh repo create "$PLUGIN_NAME" --public
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
