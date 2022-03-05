@@ -1,0 +1,44 @@
+name: Create script plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin_name:
+        description: Plugin name
+        required: true
+      visibility:
+        description: Repo visibility
+        required: true
+        type: choice
+        options:
+          - public
+          - private
+      description:
+        description: Plugin description (optional)
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.TOKEN }}
+      - name: Create a copy of this repo
+        run: |
+          echo "Attempting to create repository $PLUGIN_NAME"
+          git config --global init.defaultBranch main
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git_config=`cat .git/config`
+          rm -rf .git && git init
+          echo "$git_config" > .git/config
+          git add . && git commit -m "Initial commit"
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --source=. --remote=new_repo
+          git push new_repo main
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
+          VISIBILITY: ${{ github.event.inputs.visibility }}
+          DESCRIPTION: ${{ github.event.inputs.description }}
