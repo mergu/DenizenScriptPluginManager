@@ -32,10 +32,11 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git_config=`cat .git/config`
-          rm -rf .git && git init
+          cd template
+          git init
           echo "$git_config" > .git/config
           git add . && git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --source=. --remote=new_repo
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --source=. --remote=new_repo --license=MIT
           git push new_repo main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
