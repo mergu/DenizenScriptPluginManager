@@ -1,0 +1,4 @@
+name: DenizenScriptPluginManager
+version: ${project.version}
+main: my.project.denizenscriptpluginmanager.DenizenScriptPluginManager
+api-version: 1.13
