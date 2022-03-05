@@ -13,15 +13,14 @@ on:
         options:
           - public
           - private
+      description:
+        description: Plugin description (optional)
+        required: false
 
-#git config --global user.name "github-actions[bot]"
-#git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#git config --global 'credential.https://github.com' '!gh auth git-credential'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Setup
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -36,9 +35,10 @@ jobs:
           rm -rf .git && git init
           echo "$git_config" > .git/config
           git add . && git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=. --remote=new_repo
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --description="$DESCRIPTION" --source=. --remote=new_repo
           git push new_repo main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
           VISIBILITY: ${{ github.event.inputs.visibility }}
+          DESCRIPTION: ${{ github.event.inputs.description }}
