@@ -29,15 +29,8 @@ jobs:
       - name: Create a copy of this repo
         run: |
           echo "Attempting to create repository $PLUGIN_NAME"
-          git config --global init.defaultBranch main
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          rm -rf .git
-          git init
-          git add .
-          git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=.
-          git push origin main
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=. --remote=new_repo
+          git push new_repo main
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
