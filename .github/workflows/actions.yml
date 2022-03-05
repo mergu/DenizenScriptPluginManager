@@ -16,6 +16,7 @@ on:
 
 #git config --global user.name "github-actions[bot]"
 #git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#git config --global 'credential.https://github.com' '!gh auth git-credential'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,14 +30,14 @@ jobs:
         run: |
           echo "Attempting to create repository $PLUGIN_NAME"
           git config --global init.defaultBranch main
-          git config --global 'credential.https://github.com' '!gh auth git-credential'
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           rm -rf .git
           git init
           git add .
           git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=. --push
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=.
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
