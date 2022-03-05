@@ -31,7 +31,7 @@ jobs:
           git init
           git add .
           git commit -m "Initial commit"
-          gh repo create "$PLUGIN_NAME" "--$VISIBILITY" --source=.
+          gh repo create "$PLUGIN_NAME" "--$VISIBILITY"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           PLUGIN_NAME: ${{ github.event.inputs.plugin_name }}
